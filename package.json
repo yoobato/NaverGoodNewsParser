@@ -10,8 +10,8 @@
     "url": "git+ssh://git@bitbucket.org/mauvemist/navergoodnewsparser.git"
   },
   "devDependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "iconv": "^2.3.0",
-    "metascraper": "^1.0.7",
     "request": "^2.81.0"
   }
 }
