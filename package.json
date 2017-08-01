@@ -1,0 +1,17 @@
+{
+  "name": "navergoodnewsparser",
+  "version": "1.0.0",
+  "description": "Paser for Naver Good News (http://news.naver.com/main/hotissue/sectionList.nhn?sid1=102&cid=3069)",
+  "author": "Daeyeol Ryu <dy.ryu@sweet.pm>",
+  "private": true,
+  "main": "navergoodnewsparser.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/mauvemist/navergoodnewsparser.git"
+  },
+  "devDependencies": {
+    "iconv": "^2.3.0",
+    "metascraper": "^1.0.7",
+    "request": "^2.81.0"
+  }
+}
