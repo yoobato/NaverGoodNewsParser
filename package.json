@@ -11,7 +11,8 @@
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "iconv": "^2.3.0",
-    "request": "^2.81.0"
+    "iconv-lite": "^0.4.18",
+    "jschardet": "^1.5.0",
+    "sync-request": "^4.1.0"
   }
 }
