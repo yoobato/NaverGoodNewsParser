@@ -55,6 +55,10 @@ while (index < articlePaths.length) {
         articleImageUrl = '';
     }
     var articlePublisher = $('meta[name="twitter:creator"]').first().attr('content');
+    if (!articlePublisher) {
+        articlePublisher = $('meta[property="og:article:author"]').first().attr('content');
+    }
+    
     var articleDate = $('div.article_header div.sponsor span.t11').first().text();
 
     var newsMeta = new NewsMeta();
