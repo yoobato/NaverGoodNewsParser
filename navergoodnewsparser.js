@@ -3,7 +3,7 @@
 var cheerio         = require('cheerio'),
     requestSync     = require('sync-request'),
     fs              = require('fs'),
-    iconv           = require('iconv-lite'),
+    Iconv           = require('iconv').Iconv,
     NewsMeta        = require('./lib/news-meta');
 
 console.log('*** 네이버 따뜻한 세상 뉴스 파서 시작 ***');
@@ -39,11 +39,12 @@ while (index < articlePaths.length) {
         console.log('[' + (index + 1) + '] Error: ' + error.message);
         continue;
     }
-    
-    // EUC-KR => UTF-8
-    var html = iconv.decode(response.getBody(), 'EUC-KR').toString();
-    var $ = cheerio.load(html);
 
+    // EUC-KR => UTF-8
+    var iconv = new Iconv('EUC-KR', 'UTF-8//TRANSLIT//IGNORE');
+    var html = iconv.convert(response.getBody()).toString();
+    var $ = cheerio.load(html);
+    
     var articleUrl = $('div.article_header div.sponsor a.btn_artialoriginal').first().attr('href');
     if (!articleUrl) {
         articleUrl = '';
