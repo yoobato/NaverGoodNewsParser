@@ -31,10 +31,10 @@ for (var page = 1; page <= 145; page++) {
 var newsMetas = [];
 var index = 0;
 while (index < articlePaths.length) {
-    var url = 'http://news.naver.com' + articlePaths[index];
+    var naverUrl = 'http://news.naver.com' + articlePaths[index];
     var response = undefined;
     try {
-        response = requestSync('GET', url);
+        response = requestSync('GET', naverUrl);
     } catch (error) {
         console.log('[' + (index + 1) + '] Error: ' + error.message);
         continue;
@@ -46,7 +46,7 @@ while (index < articlePaths.length) {
 
     var articleUrl = $('div.article_header div.sponsor a.btn_artialoriginal').first().attr('href');
     if (!articleUrl) {
-        articleUrl = $('meta[property="og:url"]').first().attr('content');
+        articleUrl = '';
     }
     var articleTitle = $('meta[property="og:title"]').first().attr('content');
     var articleDesc = $('meta[property="og:description"]').first().attr('content');
@@ -58,11 +58,12 @@ while (index < articlePaths.length) {
     if (!articlePublisher) {
         articlePublisher = $('meta[property="og:article:author"]').first().attr('content');
     }
-    
+
     var articleDate = $('div.article_header div.sponsor span.t11').first().text();
 
     var newsMeta = new NewsMeta();
-    newsMeta.setUrl(articleUrl);
+    newsMeta.setNaverUrl(naverUrl);
+    newsMeta.setOriUrl(articleUrl);
     newsMeta.setTitle(articleTitle);
     newsMeta.setDesc(articleDesc);
     newsMeta.setImageUrl(articleImageUrl); 
