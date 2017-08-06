@@ -22,6 +22,8 @@ for (var page = 1; page <= 145; page++) {
     var articleATags = $('dl.cnt dt.t a');
     articleATags.each(function() {
         var articlePath = $(this).attr('href');
+        // 붎필요한 session id 제거
+        articlePath = articlePath.replace(/;jsessionid=\w*/, '');
         articlePaths.push(articlePath);
     });
 
