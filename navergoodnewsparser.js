@@ -55,14 +55,23 @@ while (index < articlePaths.length) {
     var $ = cheerio.load(html);
 
     var articleUrl = $('div.article_header div.sponsor a.btn_artialoriginal').first().attr('href');
-    if (!articleUrl) {
-        articleUrl = '';
+    if (!articleUrl || articleUrl.trim().length == 0) {
+        articleUrl = $('div.article_info a.btn_news_origin').first().attr('href');
+        if (!articleUrl || articleUrl.trim().length == 0) {
+            articleUrl = '';
+        }
     }
     var articleTitle = $('meta[property="og:title"]').first().attr('content');
     var articleDesc = $('meta[property="og:description"]').first().attr('content');
     var articleImageUrl = $('div.article_body span.end_photo_org img').first().attr('src');
-    if (!articleImageUrl) {
-        articleImageUrl = '';
+    if (!articleImageUrl || articleImageUrl.trim().length == 0) {
+        articleImageUrl = $('meta[property="og:image"]').first().attr('content');
+        // 네이버 기본 로고 이미지는 제외
+        if (!articleImageUrl || articleImageUrl.trim().length == 0
+            || articleImageUrl == 'http://static.news.naver.net/image/news/2014/press_logo/tventertain160802.png' 
+            || articleImageUrl == 'http://static.news.naver.net/image/news/ogtag/navernews_200x200_20160804.png') {
+            articleImageUrl = '';
+        }
     }
     var articlePublisher = $('meta[name="twitter:creator"]').first().attr('content');
     if (!articlePublisher) {
@@ -70,6 +79,9 @@ while (index < articlePaths.length) {
     }
 
     var articleDate = $('div.article_header div.sponsor span.t11').first().text();
+    if (!articleDate) {
+        articleDate = $('div.article_info span.author em').first().text();
+    }
 
     var newsMeta = new NewsMeta();
     newsMeta.setNaverUrl(naverUrl);
