@@ -42,11 +42,18 @@ while (index < articlePaths.length) {
         continue;
     }
 
-    // EUC-KR => UTF-8
-    var iconv = new Iconv('EUC-KR', 'UTF-8//TRANSLIT//IGNORE');
-    var html = iconv.convert(response.getBody()).toString();
+    var html = '';    
+    var contentType = response.headers['content-type'].toLowerCase();
+    if (contentType.indexOf('utf-8') > '-1') {
+        // UTF-8
+        html = response.getBody('utf8');
+    } else {
+        // EUC-KR => UTF-8
+        var iconv = new Iconv('EUC-KR', 'UTF-8//TRANSLIT//IGNORE');
+        html = iconv.convert(response.getBody()).toString();
+    }
     var $ = cheerio.load(html);
-    
+
     var articleUrl = $('div.article_header div.sponsor a.btn_artialoriginal').first().attr('href');
     if (!articleUrl) {
         articleUrl = '';
