@@ -4,7 +4,27 @@ var cheerio         = require('cheerio'),
     requestSync     = require('sync-request'),
     fs              = require('fs'),
     Iconv           = require('iconv').Iconv,
-    NewsMeta        = require('./lib/news-meta');
+    NewsMeta        = require('./lib/news-meta'),
+    readlineSync    = require('readline-sync');
+
+console.log('*** 네이버 따뜻한 세상 뉴스 파서 ***');
+
+// 시작 페이지 입력
+var startPage = undefined;
+while (startPage === undefined) {
+    startPage = readlineSync.question('시작 페이지: ');
+    if (isNaN(startPage)) {
+        startPage = undefined;
+    }
+}
+
+var endPage = undefined;
+while (endPage === undefined) {
+    endPage = readlineSync.question('종료 페이지: ');
+    if (isNaN(endPage)) {
+        endPage = undefined;
+    }
+}
 
 console.log('*** 네이버 따뜻한 세상 뉴스 파서 시작 ***');
 console.time('exec_time');
@@ -14,7 +34,7 @@ if (fs.existsSync('./output.txt')) {
 }
 
 var articlePaths = [];
-for (var page = 1; page <= 145; page++) {
+for (var page = startPage; page <= endPage; page++) {
     var url = 'http://news.naver.com/main/hotissue/sectionList.nhn?sid1=102&cid=3069&page=' + page;
     var response = requestSync('GET', url);
 

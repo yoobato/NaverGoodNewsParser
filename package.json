@@ -13,6 +13,7 @@
     "cheerio": "^1.0.0-rc.2",
     "iconv": "^2.3.0",
     "jschardet": "^1.5.0",
+    "readline-sync": "^1.4.7",
     "sync-request": "^4.1.0"
   }
 }
